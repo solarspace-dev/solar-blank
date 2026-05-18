@@ -1,0 +1,6 @@
+{
+  "description": "Pinned global Node.js tool versions for the devcontainer. Dependabot tracks this file and opens PRs when newer versions are available. When a Dependabot PR updates a version here, also update the corresponding pnpm install line in the Dockerfile.",
+  "dependencies": {
+    "hardhat": "2.22.12"
+  }
+}

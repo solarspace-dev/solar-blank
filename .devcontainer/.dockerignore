@@ -2,5 +2,7 @@
 # But we need at least motd to be able to be copied. And if its here, not even COPY clauses would work.
 .git
 .devcontainer
+!.devcontainer/requirements.txt
+!.devcontainer/package.json
 README.md
 Dockerfile
