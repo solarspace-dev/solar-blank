@@ -8,7 +8,7 @@ Ethereum projects.
 ### Base environment
 - Ubuntu-based VS Code devcontainer image (`ghcr.io/solarspace-dev/solar-blank:latest`)
 - Python 3.12 with `uv`
-- Node.js toolchain (npm, pnpm, yarn, nvm)
+- Node.js toolchain (npm, pnpm, nvm)
 - Common build tooling (`build-essential`, `git`, `curl`, `vim`, etc.)
 
 ### Smart contract tooling
