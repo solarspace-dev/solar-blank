@@ -1,0 +1,12 @@
+# Python security analysis tools installed via `uv tool install` in the Dockerfile.
+# Versions are pinned here for reproducibility and Dependabot tracking.
+# When Dependabot opens a PR updating a version here, also update the
+# corresponding ENV variable or inline version in the Dockerfile if applicable.
+slither-analyzer==0.10.4
+crytic-compile==0.3.7
+vyper==0.4.1
+slither-lsp==0.0.4
+semgrep==1.84.0
+slitherin==0.6.4
+solc-select==0.2.1
+halmos==0.1.12

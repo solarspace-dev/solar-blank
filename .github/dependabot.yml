@@ -1,0 +1,41 @@
+version: 2
+updates:
+  # Keep Docker base images (FROM lines) up to date.
+  - package-ecosystem: "docker"
+    directory: "/.devcontainer"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+
+  # Keep Python security tools up to date (requirements.txt).
+  # After merging a Dependabot PR here, also update the matching version
+  # in the `uv tool install` call in .devcontainer/Dockerfile.
+  - package-ecosystem: "pip"
+    directory: "/.devcontainer"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+
+  # Keep GitHub Actions versions up to date.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+
+  # Keep Node.js devcontainer tool versions up to date (package.json).
+  # After merging a Dependabot PR here, also update the matching `pnpm install`
+  # version in .devcontainer/Dockerfile.
+  - package-ecosystem: "npm"
+    directory: "/.devcontainer"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
