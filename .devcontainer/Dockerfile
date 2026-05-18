@@ -72,8 +72,11 @@ SHELL ["/usr/bin/bash", "-ic"]
 
 ## Install nvm at pinned version, then install pinned node + pnpm
 USER root
-RUN curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh" | bash && \
-    . ${HOME}/.nvm/nvm.sh && \
+RUN mkdir -p "${HOME}/.nvm" && \
+    curl -fsSL "https://github.com/nvm-sh/nvm/archive/refs/tags/v${NVM_VERSION}.tar.gz" -o /tmp/nvm.tar.gz && \
+    tar -xzf /tmp/nvm.tar.gz --strip-components=1 -C "${HOME}/.nvm" && \
+    rm -f /tmp/nvm.tar.gz && \
+    . "${HOME}/.nvm/nvm.sh" && \
     nvm install ${NODE_VERSION} && \
     nvm alias default ${NODE_VERSION} && \
     npm install -g pnpm@${PNPM_VERSION}
