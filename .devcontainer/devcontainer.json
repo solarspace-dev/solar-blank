@@ -18,8 +18,22 @@
   // Writable mounts in case you want to set --read-only above.
   "mounts": [
   ],
-  
-  
+
+  // Make the Anthropic API key available to Claude Code.
+  // In GitHub Codespaces, add a Codespaces secret named ANTHROPIC_API_KEY
+  // (repo or user level); it is injected here via localEnv. If unset, this
+  // is empty and Claude Code will fall back to interactive `claude login`.
+  "containerEnv": {
+    "ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}"
+  },
+
+  // Install the Claude Code CLI after the container is created. Done here
+  // (not in the Dockerfile) so it works with the prebuilt ghcr.io image
+  // and in GitHub Codespaces without rebuilding/republishing the image.
+  // Interactive bash so the image's nvm-managed node/npm are on PATH.
+  "postCreateCommand": "bash -ic 'npm install -g @anthropic-ai/claude-code'",
+
+
   // Configure tool-specific properties.
   "customizations": {
     // Configure properties specific to VS Code.
@@ -37,7 +51,8 @@
         "solarspace.solarspace",
         "juanblanco.solidity",
         "trailofbits.weaudit",
-        "runtimeverification.simbolik"
+        "runtimeverification.simbolik",
+        "anthropic.claude-code"
       ]
     }
   }
