@@ -64,6 +64,11 @@ ARG ADERYN_VERSION=0.6.8
 # ityfuzz only publishes nightly builds identified by commit hash
 ARG ITYFUZZ_NIGHTLY=nightly-35b7f08962fdd0c2e02df7ef8a43164913d514d9
 
+# SHA256 checksums for binary tarballs (verified at download time)
+ARG FOUNDRY_SHA256=cf7e688ed0c4c48adffca788b496076e31060b67ac5afe1e43dbb5499c20c88b
+ARG ADERYN_SHA256=ffd6ca658962e211a3ac821c646f69c8e14bf1b1001cbfe091bcd4535a691e46
+ARG ITYFUZZ_SHA256=73cb7cdb8eab5341c2a61b267df83f63f7c537c2950c1aa1bdbdf15beadcb489
+
 # Install uv at pinned version
 RUN python3 -m pip install --no-cache-dir uv==${UV_VERSION}
 
@@ -106,6 +111,7 @@ RUN uv tool install halmos==${HALMOS_VERSION}
 ## ityfuzz - direct binary download (only nightly builds available upstream)
 RUN curl -fsSLo /tmp/ityfuzz.tar.gz \
         "https://github.com/fuzzland/ityfuzz/releases/download/${ITYFUZZ_NIGHTLY}/ityfuzz_nightly_linux_amd64.tar.gz" && \
+    echo "${ITYFUZZ_SHA256}  /tmp/ityfuzz.tar.gz" | sha256sum --check --strict && \
     mkdir -p ${HOME}/.ityfuzz/bin && \
     tar -xzf /tmp/ityfuzz.tar.gz -C ${HOME}/.ityfuzz/bin && \
     rm /tmp/ityfuzz.tar.gz
@@ -114,6 +120,7 @@ ENV PATH="${HOME}/.ityfuzz/bin:${PATH}"
 ## Foundry framework - direct binary download
 RUN curl -fsSLo /tmp/foundry.tar.gz \
         "https://github.com/foundry-rs/foundry/releases/download/${FOUNDRY_VERSION}/foundry_${FOUNDRY_VERSION}_linux_amd64.tar.gz" && \
+    echo "${FOUNDRY_SHA256}  /tmp/foundry.tar.gz" | sha256sum --check --strict && \
     mkdir -p ${HOME}/.foundry/bin && \
     tar -xzf /tmp/foundry.tar.gz -C ${HOME}/.foundry/bin && \
     rm /tmp/foundry.tar.gz
@@ -122,6 +129,7 @@ ENV PATH="${HOME}/.foundry/bin:${PATH}"
 ## Aderyn - direct binary download
 RUN curl -fsSLo /tmp/aderyn.tar.xz \
         "https://github.com/Cyfrin/aderyn/releases/download/aderyn-v${ADERYN_VERSION}/aderyn-x86_64-unknown-linux-gnu.tar.xz" && \
+    echo "${ADERYN_SHA256}  /tmp/aderyn.tar.xz" | sha256sum --check --strict && \
     mkdir -p ${HOME}/.aderyn/bin && \
     tar -xJf /tmp/aderyn.tar.xz -C ${HOME}/.aderyn/bin && \
     rm /tmp/aderyn.tar.xz
